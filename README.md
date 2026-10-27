@@ -2,6 +2,24 @@
 
 Windows 桌面悬浮待办，基于 Tauri 2 与 Vue 3。窗口无边框、透明、不进任务栏，默认停在其他窗口下面，可从托盘置顶。
 
+## 界面
+
+窗口默认贴在桌面右上角：
+
+![桌面右上角的待办窗口](docs/screenshots/desktop.jpg)
+
+暗色与亮色：
+
+| 暗色 | 亮色 |
+| --- | --- |
+| ![暗色主题下的进行中列表](docs/screenshots/dark.png) | ![亮色主题下的进行中列表](docs/screenshots/light.png) |
+
+全部列表里可以完成、编辑和删除；编辑时可以设置提醒时间：
+
+| 全部 | 提醒 |
+| --- | --- |
+| ![全部列表，含已完成事项和编辑、删除](docs/screenshots/filters.png) | ![设置提醒时间](docs/screenshots/reminder.png) |
+
 ## 功能
 
 - 添加、编辑、删除、完成待办，并按进行中、全部、已完成筛选
