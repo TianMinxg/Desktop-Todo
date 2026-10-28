@@ -1,71 +1,73 @@
 # Desktop Todo
 
-Windows 桌面悬浮待办，基于 Tauri 2 与 Vue 3。窗口无边框、透明、不进任务栏，默认停在其他窗口下面，可从托盘置顶。
+English · [中文](README.zh-CN.md)
 
-## 界面
+A floating Windows desktop todo list, built with Tauri 2 and Vue 3. The window is borderless and transparent, stays off the taskbar, sits beneath other windows by default, and can be pinned from the tray.
 
-窗口默认贴在桌面右上角：
+## Interface
 
-![桌面右上角的待办窗口](docs/screenshots/desktop.jpg)
+The window sits at the top-right of the desktop by default:
 
-暗色与亮色：
+![Todo window at the top-right of the desktop](docs/screenshots/desktop.jpg)
 
-| 暗色 | 亮色 |
+Dark and light:
+
+| Dark | Light |
 | --- | --- |
-| ![暗色主题下的进行中列表](docs/screenshots/dark.png) | ![亮色主题下的进行中列表](docs/screenshots/light.png) |
+| ![Active list in the dark theme](docs/screenshots/dark.png) | ![Active list in the light theme](docs/screenshots/light.png) |
 
-全部列表里可以完成、编辑和删除；编辑时可以设置提醒时间：
+The full list can complete, edit, and delete items. Editing can set a reminder:
 
-| 全部 | 提醒 |
+| All | Reminder |
 | --- | --- |
-| ![全部列表，含已完成事项和编辑、删除](docs/screenshots/filters.png) | ![设置提醒时间](docs/screenshots/reminder.png) |
+| ![Full list, with completed items and edit and delete](docs/screenshots/filters.png) | ![Setting a reminder](docs/screenshots/reminder.png) |
 
-## 功能
+## Features
 
-- 添加、编辑、删除、完成待办，并按进行中、全部、已完成筛选
-- 为事项设置提醒时间，到期后发送系统通知
-- 待办保存在本地 `todos.json`，可在设置里更换数据目录
-- 亮色 / 暗色主题，选择记在本机
-- 开机自启，可在窗口底部开关
-- 系统托盘：显示 / 隐藏、置顶、退出
-- 按 Win+D 显示桌面时，待办仍留在桌面上；切回其他应用后，重新回到窗口下层
+- Add, edit, delete, and complete todos, and filter by active, all, and done
+- Set a reminder time; a system notification is sent when it is due
+- Todos are stored locally in `todos.json`, and the data directory can be changed in Settings
+- Light and dark themes; the choice is saved on this machine
+- Launch at startup, toggled at the bottom of the window
+- System tray: show / hide, pin on top, quit
+- After Win+D shows the desktop, the todo stays on the desktop; when you return to other apps, it drops back beneath them
 
-## 内存占用
+## Memory
 
-Tauri 的底层用 Rust 编写。Rust 编译成的是本地程序，不另带一份 JavaScript 运行时，界面复用系统里的 WebView2，所以常驻内存很低。在任务管理器中，本应用相关进程合计约 **36.7 MB**，其中待办窗口本身约 **8.3 MB**：
+Tauri's native layer is written in Rust. That Rust code compiles to a native program and does not ship a separate JavaScript runtime. The interface reuses the system's WebView2, so the resident memory stays low. In Task Manager, the processes for this app total about **36.7 MB**, of which the todo window itself is about **8.3 MB**:
 
-![任务管理器中常驻内存占用，WebView2 合计 36.7 MB](docs/screenshots/memory.png)
+![Resident memory in Task Manager, WebView2 totaling 36.7 MB](docs/screenshots/memory.png)
 
-## 环境
+## Requirements
 
 - Windows
 - [Node.js](https://nodejs.org/)
-- [Rust](https://rustup.rs/) 与 MSVC 构建工具
+- [Rust](https://rustup.rs/) and the MSVC build tools
 
-## 开发
+## Development
 
 ```bash
 npm install
 npm run tauri:dev
 ```
 
-前端开发服务器在 `http://localhost:1420`，由 `tauri dev` 自动启动。
+The frontend dev server is at `http://localhost:1420` and is started by `tauri dev`.
 
-## 打包
+## Build
 
 ```bash
 npm run tauri:build
 ```
 
-安装包输出到 `src-tauri/target/release/bundle/`。
+The installer is written to `src-tauri/target/release/bundle/`.
 
-## 数据
+## Data
 
-默认目录是 `%APPDATA%\Desktop Todo Tauri`：
+The default directory is `%APPDATA%\Desktop Todo Tauri`:
 
-| 文件 | 作用 |
+| File | Role |
 | --- | --- |
-| `todos.json` | 待办列表，可随数据目录一起迁移 |
-| `settings.json` | 自定义数据目录，始终留在默认目录 |
+| `todos.json` | The todo list. It moves with the data directory. |
+| `settings.json` | The custom data directory. This file always stays in the default directory. |
 
-在窗口右上角的设置里选择新文件夹时：目标文件夹没有 `todos.json`，会把现有文件移过去；已经有这份文件，则改用那份数据。
+When a new folder is chosen in the settings at the top-right of the window: if that folder has no `todos.json`, the current file is moved there; if it already has one, the app switches to that copy.
